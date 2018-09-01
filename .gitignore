@@ -1,0 +1,6 @@
+paper/
+!paper/paper.tex
+!paper/paper.pdf
+build/
+bin/
+
