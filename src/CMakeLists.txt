@@ -1,13 +1,17 @@
-set(CMAKE_CXX_FLAGS "-std=c++14 -pthread -O3 -g -DNDEBUG -Wall -Wextra -fPIC -march=native ${CXX_EXTRA_FLAGS}")
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
-file(GLOB lhc_src
-    "*.cpp"
+add_library(lhc_gl SHARED "graphics.cpp" "glad.c")
+target_include_directories(lhc_gl PRIVATE ${GLFW_INCLUDEDIR}) # NOTE ${GLFW_INCLUDE_DIRS} is empty somehow
+target_link_libraries(lhc_gl ${GLFW_LIBRARIES})
+set_target_properties( lhc_gl
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib"
 )
 
-add_executable(lhc ${lhc_src})
+add_executable(lhc "main.cpp")
+target_link_libraries(lhc lhc_gl)
 set_target_properties( lhc
     PROPERTIES
-    # ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib"
-    # LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
 )

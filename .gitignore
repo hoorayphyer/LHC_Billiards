@@ -3,4 +3,9 @@ paper/
 !paper/paper.pdf
 build/
 bin/
+lib/
+include/KHR
+include/glad
+src/glad.c
+glad.zip
 
